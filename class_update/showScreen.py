@@ -32,27 +32,32 @@ pg.display.set_caption("Tetris Game")
 # colour defined
 white = (255, 255, 255)
 black = (0, 0, 0)
+brown = (101, 67, 33)
 
-# initialize pages
-configureP = ConfigurePage(screen)
-scoreP = ScorePage(screen)
-startP = StartUpPage(screen)
-gameP = gamePlayPage(screen)
-
-# game loop
-bgm_manager.is_paused = False
-configureP.is_active = False
-scoreP.is_active = False
-gameP.is_active = False
-startP.is_active = True
-running = True
-show_popup = False
-paused = False
-gameLevel = 1
-nameResult = None
-#AI
-player_control = True
-AI_enable = False
+try:
+    # initialize pages
+    configureP = ConfigurePage(screen)
+    scoreP = ScorePage(screen)
+    startP = StartUpPage(screen)
+    gameP = gamePlayPage(screen)
+    playerData = dataProcess()
+    blockdata = BlockData()
+    Blocks =  BlocksControl(blockdata)
+    gameAI = TetrisAI(blockdata,Blocks)
+    # game loop
+    bgm_manager.is_paused = False
+    configureP.is_active = False
+    scoreP.is_active = False
+    gameP.is_active = False
+    startP.is_active = True
+    running = True
+    show_popup = False
+    paused = False
+    gameLevel = 1
+    nameResult = None
+except Exception as e:
+    print(f"Initialization error: {e}")
+    sys.exit()
 
 def reset_game():
     # Reinitialize the Blocks class
